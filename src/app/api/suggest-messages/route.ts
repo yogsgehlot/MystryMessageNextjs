@@ -4,9 +4,11 @@ import { NextResponse } from "next/server";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
-});
+}); 
 
 export const runtime = "edge";
+
+// console.log("openai", openai);
 
 export async function POST(req: Request) {
   try {
@@ -19,14 +21,18 @@ export async function POST(req: Request) {
       stream: true,
       prompt,
     });
+    console.log("suggest message ke andar hu or ye response", response);
+
 
     const stream = OpenAIStream(response);
-
+    
     return new StreamingTextResponse(stream);
   } catch (error) {
     if (error instanceof OpenAI.APIError) {
       // OpenAI API error handling
       const { name, status, headers, message } = error;
+      console.log("suggested message error",error);
+      
       return NextResponse.json({ name, status, headers, message }, { status });
     } else {
       // General error handling

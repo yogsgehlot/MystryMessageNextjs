@@ -62,6 +62,9 @@ export async function POST(request: Request) {
       await newUser.save();
     }
 
+    // console.log("i am in singup page");
+    
+
     // Send verification email
     const emailResponse = await sendVerificationEmail(
       email,

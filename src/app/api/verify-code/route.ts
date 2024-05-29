@@ -4,6 +4,8 @@ import UserModel from "@/model/User";
 export async function POST(request: Request) {
   // Connect to the database
   await dbConnect();
+  console.log("i am here");
+  
 
   try {
     const { username, code } = await request.json();
